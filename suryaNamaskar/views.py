@@ -26,19 +26,13 @@ def index(request):
 def start(request):
     return render(request, 'start.html')
 
-#def suryanamaskar(request):
-    #return StreamingHttpResponse(suryaNamaskaram())
-    # return render(request, 'suryanamaskar.html')
-
 def suryanamaskar(request):
     return render(request, 'suryanamaskar.html')
-
 
 @gzip.gzip_page
 def Home(request):
         cam = VideoCamera()
         return StreamingHttpResponse(gen(cam), content_type="multipart/x-mixed-replace;boundary=frame")
-
 
 #to capture video class
 class VideoCamera(object):
@@ -60,7 +54,6 @@ class VideoCamera(object):
                 self.frame, _ = poseAngles(landmarks, self.frame)
                 j=0
                 sumValue = 0
-                # x=0
                 name = asanaName[self.x]
                 
                 cv2.rectangle(self.frame, (0,0),(650,50),(0,0,0),-1)
@@ -73,13 +66,12 @@ class VideoCamera(object):
                     j=j+1
                 avg = round(sumValue/8,2)
             
-                if avg >= 85:
+                if avg >= 80:
                     self.duration = self.duration + 1 
                 else: 
                     while self.duration >0:
                         self.duration = self.duration - 1
-                #print(duration)
-                #print(m)
+                
                 if self.duration > 5 and self.duration <= 35:
                         cv2.putText(self.frame, "Hold your pose" , (100, 200),cv2.FONT_HERSHEY_PLAIN, 4, (0, 255, 0), 4)
                         if self.duration%10==0:
@@ -88,17 +80,12 @@ class VideoCamera(object):
                         cv2.putText(self.frame, "Good job :)" , (100, 200),cv2.FONT_HERSHEY_PLAIN, 4, (0, 255, 0), 4)
                         if self.duration == 39:
                             playsound('audio/win.wav', False)
-                if self.duration > 60 :
+                if self.duration > 40 :
                     self.x=self.x+1
                     self.duration=0
-                #print(x)
-                
-                #print(self.duration)
                 
                 cv2.putText(self.frame, "Accuracy : {}".format(avg) , (400, 40),cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 2)
                 accuracyScore = accuracyMeter(avg, self.frame)
-                #cv2.putText(frame, "Level : {}".format(accuracyScore) , (50, 90),cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 2)
-                #plt.imshow(frame, meter)
             
             sumValue = 0
 

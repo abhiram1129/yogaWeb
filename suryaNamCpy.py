@@ -112,10 +112,10 @@ def accuracyMeter(finalVal, frameName):
           elif(finalVal>50 and finalVal<=75):
             accuracy="good" 
             cv2.rectangle(frameName, (20,70),(620,460),(0,255,255),20)
-          elif(finalVal>75 and finalVal<=90):
+          elif(finalVal>75 and finalVal<=80):
             accuracy="very good"
             cv2.rectangle(frameName, (20,70),(620,460),(0,255,255),20)  
-          elif(finalVal>90):
+          elif(finalVal>80):
             accuracy="perfect"
             cv2.rectangle(frameName, (10,70),(620,460),(0,255,0),20)
           
@@ -142,7 +142,7 @@ asanaInventory = np.empty(12, dtype='object')
 asanaInventory[0] = np.array([56,56,30,30,180,180,175,175])
 asanaInventory[1] = np.array([170,170,160,160,180,180,140,140])
 asanaInventory[2] = np.array([165,165,120,120,175,175,30,30])
-asanaInventory[3]= np.array([170,170,30,30,30,145,40,140])
+asanaInventory[3]= np.array([170,170,30,30,30,135,40,130])
 asanaInventory[4] = np.array([175,175,70,70,170,170,175,175])
 asanaInventory[5] = np.array([35,35,25,25,140,140,145,145])
 asanaInventory[6] = np.array([85,85,5,5,180,180,145,145])
